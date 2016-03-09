@@ -8,21 +8,26 @@ public static class EasingUtil
     public delegate float EasingMethod(float start, float end, float value);
     public static Vector2 EaseVector2(EasingMethod method, Vector2 start, Vector2 end, float value)
     {
-        Vector2 returnVec = new Vector2();
+        Vector2 returnVec = start;
 
-        returnVec.x = method(start.x, end.x, value);
-        returnVec.y = method(start.y, end.y, value);
+        if(!(start.x == end.x))
+            returnVec.x = method(start.x, end.x, value);
+        if(!(start.y == end.y))
+            returnVec.y = method(start.y, end.y, value);
 
         return returnVec;
     }
 
     public static Vector3 EaseVector3(EasingMethod method, Vector3 start, Vector3 end, float value)
     {
-        Vector3 returnVec = new Vector3();
-
-        returnVec.x = method(start.x, end.x, value);
-        returnVec.y = method(start.y, end.y, value);
-        returnVec.z = method(start.z, end.z, value);
+        Vector3 returnVec = start;
+        
+        if (!(start.x == end.x))
+            returnVec.x = method(start.x, end.x, value);
+        if (!(start.y == end.y))
+            returnVec.y = method(start.y, end.y, value);
+        if(!(start.z == end.z))
+            returnVec.z = method(start.z, end.z, value);
 
         return returnVec;
     }
