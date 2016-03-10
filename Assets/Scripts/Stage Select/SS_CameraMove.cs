@@ -30,7 +30,7 @@ public class SS_CameraMove : MonoBehaviour
 
         if(Input.GetMouseButton(0) && !isMoving && IsBackgroundTouched())
         {
-            float moveValue = deltaPos.x * 1.2f;
+            float moveValue = deltaPos.x;
 
             Vector3 newPos = transform.position;
             newPos.x = Mathf.Clamp(newPos.x + moveValue, 0, GetMaxPosX(currFloor));
@@ -66,8 +66,8 @@ public class SS_CameraMove : MonoBehaviour
         Vector3 startPos = transform.position;
         Vector3 endPos = new Vector3(0, transform.position.y, -10);
 
-        // Move Camera to left side.
-        bool moveLeft = (endPos - startPos).magnitude > 0.1f;
+        bool moveLeft = startPos.x > 0.1f;
+        Debug.Log(startPos.x);
 
         if (moveLeft)
         {
