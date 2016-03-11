@@ -93,4 +93,10 @@ public class SceneEffector : MonoBehaviour
         if (nextScene != null)
             Application.LoadLevel(nextScene);
     }
+
+    public void StopFading()
+    {
+        StopCoroutine(FadeIn(1f));
+        StopCoroutine(FadeOut(1f));
+    }
 }

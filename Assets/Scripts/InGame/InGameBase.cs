@@ -8,6 +8,7 @@ public abstract class InGameBase : MonoBehaviour
     // If there's no next dialogue,           " "         .
     public string nextDialogue;
 
+
     protected virtual void Awake()
     {
 

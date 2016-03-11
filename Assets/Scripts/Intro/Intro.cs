@@ -9,6 +9,8 @@ public class Intro : MonoBehaviour
 
     const float introCutSceneInterval = 2f;
 
+    Coroutine introRoutine;
+
     void Awake()
     {
         Button skipButton = GameObject.Find("Skip Button").GetComponent<Button>();
@@ -17,14 +19,16 @@ public class Intro : MonoBehaviour
         SceneEffector.instance.CheckInstance();
         StartCoroutine(SceneEffector.instance.FadeIn(3f));
 
-        StartCoroutine(IntroProcess());
+        introRoutine = StartCoroutine(IntroProcess());
     }
 
     IEnumerator IntroProcess()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         cutSceneImage.gameObject.SetActive(true);
 
+        StartCoroutine(SceneEffector.instance.FadeOut(1f));
+        yield return new WaitForSeconds(1f);
         for(int i = 0;i<introSprite.Length;i++)
         {
             StartCoroutine(SceneEffector.instance.FadeIn(1f));
@@ -36,12 +40,12 @@ public class Intro : MonoBehaviour
 
             yield return new WaitForSeconds(1f);
         }
-
     }
 
     void OnSkipButtonDown()
     {
-        StopCoroutine("IntroProcess");
+        StopCoroutine(introRoutine);
+        SceneEffector.instance.StopFading();
         StartCoroutine(SceneEffector.instance.FadeOut(3f, "Main"));
     }
 }
