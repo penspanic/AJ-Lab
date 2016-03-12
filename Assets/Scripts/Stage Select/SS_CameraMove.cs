@@ -4,7 +4,12 @@ using System.Collections;
 
 public class SS_CameraMove : MonoBehaviour
 {
-    int currFloor = 1;
+    public int currFloor
+    {
+        get;
+        private set;
+    }
+ 
     bool isMoving = false;
     bool canScroll = true;
 
@@ -12,8 +17,14 @@ public class SS_CameraMove : MonoBehaviour
     Vector2 currTouchPos = Vector2.zero;
     Vector2 deltaPos = Vector2.zero;
 
+    SS_Player player;
+
     void Awake()
     {
+        currFloor = 1;
+
+        player = GameObject.FindObjectOfType<SS_Player>();
+
         Button upButton = GameObject.Find("Up Button").GetComponent<Button>();
         Button downButton = GameObject.Find("Down Button").GetComponent<Button>();
 
@@ -23,14 +34,14 @@ public class SS_CameraMove : MonoBehaviour
     
     void LateUpdate()
     {
-        currTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        currTouchPos = Input.mousePosition;
 
         deltaPos = prevTouchPos - currTouchPos;
         prevTouchPos = currTouchPos;
 
         if(Input.GetMouseButton(0) && !isMoving && IsBackgroundTouched())
         {
-            float moveValue = deltaPos.x;
+            float moveValue = deltaPos.x * Time.deltaTime;
 
             Vector3 newPos = transform.position;
             newPos.x = Mathf.Clamp(newPos.x + moveValue, 0, GetMaxPosX(currFloor));
@@ -41,7 +52,7 @@ public class SS_CameraMove : MonoBehaviour
     #region Event
     void OnUpButtonDown()
     {
-        if (isMoving || currFloor == 5)
+        if (isMoving || player.floorChanging || currFloor == 5)
             return;
         StartCoroutine(FloorChange(currFloor + 1));
         currFloor++;
@@ -49,16 +60,18 @@ public class SS_CameraMove : MonoBehaviour
 
     void OnDownButtonDown()
     {
-        if (isMoving || currFloor == 1)
+        if (isMoving || player.floorChanging || currFloor == 1)
             return;
         StartCoroutine(FloorChange(currFloor - 1));
         currFloor--;
     }
     #endregion
 
-    IEnumerator FloorChange(int floor)
+    IEnumerator FloorChange(int floor) // Completed in 2 seconds.
     {
         isMoving = true;
+
+        StartCoroutine(player.FloorChange(7.2f * (floor - 1)));
 
         float elapsedTime = 0f;
         float moveTime = 1f;
@@ -67,8 +80,8 @@ public class SS_CameraMove : MonoBehaviour
         Vector3 endPos = new Vector3(0, transform.position.y, -10);
 
         bool moveLeft = startPos.x > 0.1f;
-        Debug.Log(startPos.x);
-
+        //Debug.Log(startPos.x);
+        
         if (moveLeft)
         {
             while (elapsedTime < moveTime)
@@ -87,19 +100,19 @@ public class SS_CameraMove : MonoBehaviour
         endPos = new Vector3(0, 7.2f * (floor - 1),-10);
 
         // Move Camera to up stair.
-        while(elapsedTime < moveTime)
+        while (elapsedTime < moveTime)
         {
             elapsedTime += Time.deltaTime;
 
-            transform.position = EasingUtil.EaseVector3(EasingUtil.easeInOutBack, startPos, endPos, elapsedTime / moveTime);
+            transform.position = EasingUtil.EaseVector3(EasingUtil.easeInQuad, startPos, endPos, elapsedTime / moveTime);
             yield return null;
         }
+        transform.position = endPos;
         isMoving = false;
     }
-
-    int GetMaxPosX(int floor)
+    float GetMaxPosX(int floor)
     {
-        return 10 * (floor - 1);
+        return 6.4f * (floor - 1);
     }
 
     bool IsBackgroundTouched()

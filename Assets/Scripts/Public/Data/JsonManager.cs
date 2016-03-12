@@ -1,11 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using LitJson;
-
-class DialogueData
-{
-    string[] dialogue;
-}
 
 public class JsonManager : MonoBehaviour
 {
@@ -36,11 +32,25 @@ public class JsonManager : MonoBehaviour
 
     public DialogueData GetDialogueData(string dialogueName)
     {
-        JsonReader r = new JsonReader(dialogueJson.text);
-        r.
-        JsonData dialogueJsonData;
-        DialogueData returnData = new DialogueData();
+        JsonData dialogueJsonData = JsonMapper.ToObject(dialogueJson.text)[dialogueName];
 
-        returnData
+        List<string> dialogueList = new List<string>();
+        List<string> portraitList = new List<string>();
+
+        for(int i = 0;i<dialogueJsonData["Dialogue"].Count;i++)
+        {
+            dialogueList.Add(dialogueJsonData["Dialogue"][i].ToString());
+        }
+
+        for(int i = 0;i<dialogueJsonData["Portrait"].Count;i++)
+        {
+            portraitList.Add(dialogueJsonData["Portrait"][i].ToString());
+        }
+
+        DialogueData returnData = new DialogueData();
+        returnData.dialogue = dialogueList.ToArray();
+        returnData.portrait = portraitList.ToArray();
+
+        return returnData;
     }
 }
