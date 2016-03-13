@@ -4,6 +4,7 @@ using System.Collections;
 
 public class Main : MonoBehaviour
 {
+    public GameObject a;
 
     Button stageButton;
 
@@ -20,6 +21,8 @@ public class Main : MonoBehaviour
         stageButton = GameObject.Find("Stage Button").GetComponent<Button>();
         stageButton.onClick.AddListener(OnStageButtonDown);
 
+        OutlineEffect outlineEffect = GameObject.FindObjectOfType<OutlineEffect>();
+        outlineEffect.SetOutlineObject(a.GetComponent<Renderer>(), 2);
     }
 
     void OnStageButtonDown()
