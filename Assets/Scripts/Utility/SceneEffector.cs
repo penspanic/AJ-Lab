@@ -25,7 +25,7 @@ public class SceneEffector : MonoBehaviour
     }
     GameObject fadeObject;
     SpriteRenderer sprRenderer;
-    BoxCollider2D collider;
+    new BoxCollider2D collider;
     Sprite black;
     Sprite white;
 
@@ -62,7 +62,7 @@ public class SceneEffector : MonoBehaviour
         }
 
         sprRenderer.color = new Color(0, 0, 0, 1);
-        sprRenderer.enabled = false;
+        //sprRenderer.enabled = false;
 
         if (nextScene != null)
             Application.LoadLevel(nextScene);
@@ -92,6 +92,26 @@ public class SceneEffector : MonoBehaviour
         collider.enabled = false;
         if (nextScene != null)
             Application.LoadLevel(nextScene);
+    }
+
+    public IEnumerator CameraShake(float duration, float period, float value)
+    {
+        float elapsedTime = 0f;
+
+        Vector3 originalPos = Camera.main.transform.position;
+        Vector3 additionalPos;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += period;
+
+            additionalPos = Random.insideUnitCircle * value * (1 - (elapsedTime / duration));
+            Camera.main.transform.position = originalPos + additionalPos;
+
+            yield return new WaitForSeconds(period);
+        }
+
+        Camera.main.transform.position = originalPos;
     }
 
     public void StopFading()

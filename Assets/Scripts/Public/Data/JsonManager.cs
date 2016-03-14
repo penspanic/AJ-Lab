@@ -30,7 +30,7 @@ public class JsonManager : MonoBehaviour
         dialogueJson = Resources.Load<TextAsset>("Text File/Dialogue");
     }
 
-    public DialogueData GetDialogueData(string dialogueName)
+    public DialogData GetDialogueData(string dialogueName)
     {
         JsonData dialogueJsonData = JsonMapper.ToObject(dialogueJson.text)[dialogueName];
 
@@ -47,8 +47,8 @@ public class JsonManager : MonoBehaviour
             portraitList.Add(dialogueJsonData["Portrait"][i].ToString());
         }
 
-        DialogueData returnData = new DialogueData();
-        returnData.dialogue = dialogueList.ToArray();
+        DialogData returnData = new DialogData();
+        returnData.dialog = dialogueList.ToArray();
         returnData.portrait = portraitList.ToArray();
 
         return returnData;

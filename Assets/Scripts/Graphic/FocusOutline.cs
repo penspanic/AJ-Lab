@@ -10,7 +10,7 @@ public class FocusOutline : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     static OutlineEffect outlineEffect;
 
     public int colorID;
-    Renderer renderer;
+    new Renderer renderer;
 
     void Awake()
     {
@@ -19,7 +19,6 @@ public class FocusOutline : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             outlineEffect = GameObject.FindObjectOfType<OutlineEffect>();
         }
         renderer = GetComponent<Renderer>();
-
     }
 
     public void OnPointerEnter(PointerEventData eventData)

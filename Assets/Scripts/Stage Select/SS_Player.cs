@@ -31,7 +31,6 @@ public class SS_Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other);
         if(other.CompareTag("MainCamera"))
         {
             moveSpeed = 2f;
@@ -40,7 +39,6 @@ public class SS_Player : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log(other);
         if(other.CompareTag("MainCamera"))
         {
             moveSpeed = 8f;

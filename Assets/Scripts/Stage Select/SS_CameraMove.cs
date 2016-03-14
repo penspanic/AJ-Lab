@@ -13,6 +13,8 @@ public class SS_CameraMove : MonoBehaviour
     bool isMoving = false;
     bool canScroll = true;
 
+    bool prevMouseDown = false;
+
     Vector2 prevTouchPos = Vector2.zero;
     Vector2 currTouchPos = Vector2.zero;
     Vector2 deltaPos = Vector2.zero;
@@ -32,21 +34,27 @@ public class SS_CameraMove : MonoBehaviour
         downButton.onClick.AddListener(OnDownButtonDown);
     }
     
-    void LateUpdate()
+    void Update()
     {
         currTouchPos = Input.mousePosition;
 
         deltaPos = prevTouchPos - currTouchPos;
         prevTouchPos = currTouchPos;
 
-        if(Input.GetMouseButton(0) && !isMoving && IsBackgroundTouched())
+        if(Input.GetMouseButton(0) && !isMoving && IsBackgroundTouched() && prevMouseDown)
         {
             float moveValue = deltaPos.x * Time.deltaTime;
 
             Vector3 newPos = transform.position;
             newPos.x = Mathf.Clamp(newPos.x + moveValue, 0, GetMaxPosX(currFloor));
             transform.position = newPos;
+
+            prevMouseDown = true;
         }
+        if (Input.GetMouseButton(0))
+            prevMouseDown = true;
+        else
+            prevMouseDown = false;
     }
 
     #region Event
@@ -77,7 +85,7 @@ public class SS_CameraMove : MonoBehaviour
         float moveTime = 1f;
 
         Vector3 startPos = transform.position;
-        Vector3 endPos = new Vector3(0, transform.position.y, -10);
+        Vector3 endPos = new Vector3(0, transform.position.y, -5);
 
         bool moveLeft = startPos.x > 0.1f;
         //Debug.Log(startPos.x);
@@ -97,7 +105,7 @@ public class SS_CameraMove : MonoBehaviour
         moveTime = 1f;
 
         startPos = transform.position;
-        endPos = new Vector3(0, 7.2f * (floor - 1),-10);
+        endPos = new Vector3(0, 7.2f * (floor - 1), -5);
 
         // Move Camera to up stair.
         while (elapsedTime < moveTime)

@@ -13,13 +13,13 @@ public class Intro : MonoBehaviour
 
     void Awake()
     {
-        Button skipButton = GameObject.Find("Skip Button").GetComponent<Button>();
-        skipButton.onClick.AddListener(OnSkipButtonDown);
 
         SceneEffector.instance.CheckInstance();
-        StartCoroutine(SceneEffector.instance.FadeIn(3f));
+        StartCoroutine(SceneEffector.instance.FadeIn(2f));
 
         introRoutine = StartCoroutine(IntroProcess());
+
+        EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
     }
 
     IEnumerator IntroProcess()
@@ -27,8 +27,8 @@ public class Intro : MonoBehaviour
         yield return new WaitForSeconds(2f);
         cutSceneImage.gameObject.SetActive(true);
 
-        StartCoroutine(SceneEffector.instance.FadeOut(1f));
-        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(SceneEffector.instance.FadeOut(1f));
+
         for(int i = 0;i<introSprite.Length;i++)
         {
             StartCoroutine(SceneEffector.instance.FadeIn(1f));
@@ -36,16 +36,8 @@ public class Intro : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
             
-            StartCoroutine(SceneEffector.instance.FadeOut(1f));
-
-            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(SceneEffector.instance.FadeOut(1f));
         }
-    }
-
-    void OnSkipButtonDown()
-    {
-        StopCoroutine(introRoutine);
-        SceneEffector.instance.StopFading();
-        StartCoroutine(SceneEffector.instance.FadeOut(3f, "Main"));
+        Application.LoadLevel("Main");
     }
 }

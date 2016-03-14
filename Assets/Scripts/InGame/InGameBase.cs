@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+같은 분기점에 속해 있는 스테이지는 똑같음.
+분기점을 지나면 미니게임이 변하게 되서 총 게임 씬은 21개(미니게임 7개 * 3)
+*/
+
 public abstract class InGameBase : MonoBehaviour
 {
-    // If there's no next cut scene, variable will be null.
+    // 게임 클리어 후 보여줄 컷씬
     public string nextCutScene;
-    // If there's no next dialogue,           " "         .
+    // 게임 클리어 후 출력할 대화
     public string nextDialogue;
 
 

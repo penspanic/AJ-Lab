@@ -114,6 +114,8 @@ public class OutlineEffect : MonoBehaviour
 	void Start () 
 	{
 		CreateMaterialsIfNeeded();
+        if (Application.platform == RuntimePlatform.Android)
+            flipY = false;
 	}
      
 	void OnPreCull()
