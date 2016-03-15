@@ -13,7 +13,7 @@ public class Main : MonoBehaviour
     void Awake()
     {
         SceneEffector.instance.CheckInstance();
-        StartCoroutine(SceneEffector.instance.FadeIn(2f));
+        StartCoroutine(SceneEffector.instance.FadeIn(1f));
 
         DialogViewer.instance.CheckInstance();
         DialogViewer.instance.ShowDialogue("First");
@@ -21,10 +21,8 @@ public class Main : MonoBehaviour
         stageButton = GameObject.Find("Stage Button").GetComponent<Button>();
         stageButton.onClick.AddListener(OnStageButtonDown);
 
-        OutlineEffect outlineEffect = GameObject.FindObjectOfType<OutlineEffect>();
-        outlineEffect.SetOutlineObject(a.GetComponent<Renderer>(), 2);
-
-        StartCoroutine(SceneEffector.instance.CameraShake(0.5f,0.025f, 0.5f));
+        EventManager.PushEvent(new EventData(EventType.Message, "First Message"));
+        EventManager.PushEvent(new EventData(EventType.Message, "Second Message"));
     }
 
     void OnStageButtonDown()
@@ -34,6 +32,6 @@ public class Main : MonoBehaviour
         isChanging = true;
         
         SceneEffector.instance.CheckInstance();
-        StartCoroutine(SceneEffector.instance.FadeOut(2f, "Stage Select"));
+        StartCoroutine(SceneEffector.instance.FadeOut(1f, "Stage Select"));
     }
 }

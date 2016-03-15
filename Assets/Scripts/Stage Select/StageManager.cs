@@ -17,6 +17,8 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    public bool showTutorial;
+
     bool[] stageCleared = new bool[77];
 
     public void CheckInstance()

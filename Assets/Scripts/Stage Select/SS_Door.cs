@@ -11,6 +11,8 @@ public class SS_Door : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     }
 
     public int stage;
+    public bool showTutorial;
+
     StageSelect stageSelect;
     SpriteRenderer markRenderer;
 
@@ -25,6 +27,7 @@ public class SS_Door : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         if(StageManager.instance.StageCleared(stage))
         {
+            cleared = true;
             markRenderer.enabled = false;
         }
     }
@@ -37,7 +40,7 @@ public class SS_Door : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        stageSelect.GameStart(stage);
+        stageSelect.GameStart(stage, showTutorial);
     }
 
     IEnumerator BigAndSmall(float time)

@@ -29,7 +29,7 @@ public class DialogViewer : MonoBehaviour
     Text dialogText;
     Sprite currPortrait;
 
-    DialogData currDialogueData;
+    DialogData currDialogData;
     int currIndex = 0;
     bool textEffecting = false;
 
@@ -57,6 +57,7 @@ public class DialogViewer : MonoBehaviour
     {
         transform.SetParent(GameObject.FindObjectOfType<Canvas>().transform, false);
     }
+
     public IEnumerator ShowDialogue(string dialogueName)
     {
         if (isShowing)
@@ -65,13 +66,13 @@ public class DialogViewer : MonoBehaviour
         }
         isShowing = true;
 
-        currDialogueData = JsonManager.instance.GetDialogueData(dialogueName);
+        currDialogData = JsonManager.instance.GetDialogueData(dialogueName);
         currIndex = 0;
 
         ResetParent();
         dialogWindow.SetActive(true);
 
-        SetDialogue(currDialogueData.dialog[0], currDialogueData.portrait[0]);
+        SetDialogue(currDialogData.dialog[0], currDialogData.portrait[0]);
 
         while (isShowing)
             yield return null;
@@ -115,22 +116,22 @@ public class DialogViewer : MonoBehaviour
         if (textEffecting)
             return;
 
-        if (currDialogueData.dialog.Length - 1 == currIndex)
+        if (currDialogData.dialog.Length - 1 == currIndex)
         {
             isShowing = false;
             CloseDialogueWindow();
             return;
         }
         currIndex++;
-        SetDialogue(currDialogueData.dialog[currIndex], GetPortrait(currIndex));
+        SetDialogue(currDialogData.dialog[currIndex], GetPortrait(currIndex));
     }
 
     string GetPortrait(int index)
     {
-        if (currDialogueData.portrait.Length == 1)
-            return currDialogueData.portrait[0];
+        if (currDialogData.portrait.Length == 1)
+            return currDialogData.portrait[0];
         else
-            return currDialogueData.portrait[index];
+            return currDialogData.portrait[index];
     }
 
     void CloseDialogueWindow()

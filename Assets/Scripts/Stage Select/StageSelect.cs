@@ -8,14 +8,15 @@ public class StageSelect : MonoBehaviour
     void Awake()
     {
         SceneEffector.instance.CheckInstance();
-        StartCoroutine(SceneEffector.instance.FadeIn(2f));
+        StartCoroutine(SceneEffector.instance.FadeIn(1f));
     }
 
-    public void GameStart(int stage)
+    public void GameStart(int stage, bool showTutorial)
     {
         if (isChanging)
             return;
         isChanging = true;
-        StartCoroutine(SceneEffector.instance.FadeOut(2f, StageManager.instance.GetSceneName(stage)));
+        StageManager.instance.showTutorial = showTutorial;
+        StartCoroutine(SceneEffector.instance.FadeOut(1f, StageManager.instance.GetSceneName(stage)));
     }
 }

@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections.Generic;
 
 public enum EventType
 {
     Dialog,
     ItemGet,
+    Message,
 }
 
 public class EventData
@@ -29,16 +31,29 @@ public static class EventManager
         eventList.Add(data);
     }
     
-    public static EventData[] GetEvent(EventType type)
+    public static List<EventData> GetEvents(EventType type)
     {
-        EventData[] dataArray = eventList.FindAll((data) =>
+        List<EventData> returnList = eventList.FindAll((data) =>
         {
             return data.type == type;
-        }).ToArray();
+        });
 
-        for (int i = 0; i < dataArray.Length; i++)
-            eventList.Remove(dataArray[i]);
+        foreach(EventData eachData in returnList)
+        {
+            eventList.Remove(eachData);
+        }
+        return returnList;
+    }
 
-        return dataArray;
+    public static EventData GetEvent(EventType type)
+    {
+        EventData returnData = eventList.Find((data) =>
+        {
+            return data.type == type;
+        });
+
+        eventList.Remove(returnData);
+
+        return returnData;
     }
 }
