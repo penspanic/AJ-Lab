@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public enum EventType
 {
     Dialog,
-    ItemGet,
     Message,
 }
 
@@ -51,6 +50,26 @@ public static class EventManager
         {
             return data.type == type;
         });
+
+        eventList.Remove(returnData);
+
+        return returnData;
+    }
+
+    public static EventData GetEventByOrder()
+    {
+        EventData returnData = eventList.Find((data) =>
+        {
+            return data.type == EventType.Dialog;
+        });
+
+        if(returnData == null)
+        {
+            returnData = eventList.Find((data) =>
+            {
+                return data.type == EventType.Message;
+            });
+        }
 
         eventList.Remove(returnData);
 

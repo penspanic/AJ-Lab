@@ -55,7 +55,6 @@ public class MessageBoxViewer : MonoBehaviour
 
     public IEnumerator ShowMessage(string message)
     {
-        Debug.Log("Show Message");
         if (isShowing)
             throw new UnityException("Already showing message!");
         isShowing = true;
@@ -68,7 +67,6 @@ public class MessageBoxViewer : MonoBehaviour
         {
             if (!isShowing)
             {
-                Debug.Log("Close Message Box");
                 break;
             }
             yield return null;

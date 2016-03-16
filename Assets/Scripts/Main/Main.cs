@@ -23,6 +23,9 @@ public class Main : MonoBehaviour
 
         EventManager.PushEvent(new EventData(EventType.Message, "First Message"));
         EventManager.PushEvent(new EventData(EventType.Message, "Second Message"));
+
+        EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
+        EventManager.PushEvent(new EventData(EventType.Dialog, "Second"));
     }
 
     void OnStageButtonDown()

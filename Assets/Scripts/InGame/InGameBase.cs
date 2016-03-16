@@ -26,7 +26,8 @@ public abstract class InGameBase : MonoBehaviour
     {
         isChanging = true;
         yield return StartCoroutine(SceneEffector.instance.FadeIn(1f));
-        yield return StartCoroutine(TutorialViewer.instance.ShowTutorial(gameName));
+        if(StageManager.instance.showTutorial)
+            yield return StartCoroutine(TutorialViewer.instance.ShowTutorial(gameName));
         isChanging = false;
         OnGameStart();
     }
