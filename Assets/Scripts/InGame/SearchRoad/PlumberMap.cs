@@ -3,10 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 
 
+public struct NearRoads
+{
+    public NearRoads(Road top, Road bottom, Road left, Road right)
+    {
+        topRoad = top;
+        bottomRoad = bottom;
+        leftRoad = left;
+        rightRoad = right;
+    }
+
+    public readonly Road topRoad;
+    public readonly Road bottomRoad;
+    public readonly Road leftRoad;
+    public readonly Road rightRoad;
+}
+
 public class PlumberMap : MonoBehaviour
 {
-    const int mapColumn = 10;
-    const int mapRow = 10;
+    const int MapColumn = 10;
+    const int MapRow = 5;
 
     GameObject pipePrefab;
 
@@ -20,7 +36,6 @@ public class PlumberMap : MonoBehaviour
     {
         //pipePrefab = Resources.Load<GameObject>("Prefab/InGame/Plumber/Pipe");
         //GameObject map = new GameObject("Map");
-
         //for (int row = 0; row < 5; row++)
         //{
         //    GameObject rowParent = new GameObject("Row" + (row + 1).ToString());
@@ -34,13 +49,13 @@ public class PlumberMap : MonoBehaviour
         //    }
         //}
 
-        roads = new Road[5, 10];
+        roads = new Road[MapColumn, MapRow];
 
-        for (int row = 0; row < 5; row++)
+        for (int row = 0; row < MapRow; row++)
         {
-            for (int col = 0; col < 10; col++)
+            for (int col = 0; col < MapColumn; col++)
             {
-                roads[row, col] = GameObject.Find(
+                roads[col, row] = GameObject.Find(
                     "Road" + (row + 1).ToString() + "," + (col + 1).ToString()).GetComponent<Road>();
             }
         }
@@ -50,4 +65,57 @@ public class PlumberMap : MonoBehaviour
     {
 
     }
+
+    public NearRoads GetNearRoad(Road target) // 인접한 길 리턴
+    {
+        int targetRowIndex = 0;
+        int targetColIndex = 0;
+
+        for (int row = 0; row < MapRow; row++)
+        {
+            for (int col = 0; col < MapColumn; col++)
+            {
+                if (roads[col, row] == target)
+                {
+                    targetRowIndex = row;
+                    targetColIndex = col;
+                }
+            }
+        }
+
+        Road top = null;
+        Road bottom = null;
+        Road left = null;
+        Road right = null;
+
+        if (targetRowIndex != 0) // top
+            top = roads[targetColIndex, targetRowIndex - 1];
+        if (targetRowIndex + 1 < MapRow) // bottom
+            bottom = roads[targetColIndex, targetRowIndex + 1];
+        if (targetColIndex != 0) // left
+            left = roads[targetColIndex - 1, targetRowIndex];
+        if (targetColIndex + 1 < MapColumn) // right
+            right = roads[targetColIndex + 1, targetRowIndex];
+
+        return new NearRoads(top, bottom, left, right);
+    }
+
+    public Vector2 GetRoadIndex(Road target)
+    {
+        Vector2 returnVec = new Vector2();
+
+        for (int row = 0; row < MapRow; row++)
+        {
+            for (int col = 0; col < MapColumn; col++)
+            {
+                if (roads[col, row] == target)
+                {
+                    returnVec.x = col;
+                    returnVec.y = row;
+                }
+            }
+        }
+        return returnVec;
+    }
+
 }

@@ -45,6 +45,11 @@ public abstract class InGameBase : MonoBehaviour
     protected virtual void OnGameEnd() // 게임의 모든 처리가 끝난 후 다음 씬으로 넘어가야 할 때 호출
     {
         isChanging = true;
-        StartCoroutine(SceneEffector.instance.FadeOut(1f));
+        StartCoroutine(SceneEffector.instance.FadeOut(1,"Stage Select"));
+    }
+
+    public void GameEnd()
+    {
+        OnGameEnd();
     }
 }
