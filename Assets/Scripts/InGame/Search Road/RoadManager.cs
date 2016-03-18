@@ -58,14 +58,14 @@ public class RoadManager : MonoBehaviour
         if (isCleared)
             gameScene.GameEnd();
 
-        string s = "";
+        //string s = "";
 
-        foreach(Road eachRoad in beAnswerList)
-        {
-            Vector2 index = map.GetRoadIndex(eachRoad);
-            s += "[" + index.x + "," + index.y + "] , ";
-        }
-        Debug.Log(s);
+        //foreach(Road eachRoad in beAnswerList)
+        //{
+        //    Vector2 index = map.GetRoadIndex(eachRoad);
+        //    s += "[" + index.x + "," + index.y + "] , ";
+        //}
+        //Debug.Log(s);
     }
 
     Road GetConnectedRoad(Road target,RoadDirection dir)
