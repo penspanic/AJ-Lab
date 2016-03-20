@@ -5,15 +5,15 @@ public class EnemySpawner : MonoBehaviour
 {
     public DD_Enemy[] normalEnemyPrefabs;
     public DD_Enemy bossPrefab;
+    public float spawnInterval;
     public int spawnCount;
 
     DD_Game game;
 
-    float spawnInterval;
+
     void Awake()
     {
         game = GameObject.FindObjectOfType<DD_Game>();
-        spawnInterval = 2f;
         StartCoroutine(SpawnProcess());
     }
 

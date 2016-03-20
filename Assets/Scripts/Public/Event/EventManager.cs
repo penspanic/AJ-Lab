@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public enum EventType
 {
     Dialog,
-    Message,
+    Popup,
 }
 
 public class EventData
@@ -67,7 +67,7 @@ public static class EventManager
         {
             returnData = eventList.Find((data) =>
             {
-                return data.type == EventType.Message;
+                return data.type == EventType.Popup;
             });
         }
 

@@ -28,9 +28,9 @@ public class EventHandler : MonoBehaviour
                         yield return StartCoroutine(
                             DialogViewer.instance.ShowDialogue(currEvent.data));
                         break;
-                    case EventType.Message:
+                    case EventType.Popup:
                         yield return StartCoroutine(
-                            MessageBoxViewer.instance.ShowMessage(currEvent.data));
+                            PopupViewer.instance.ShowPopup(currEvent.data));
                         break;
                 }
                 yield return new WaitForSeconds(1f);

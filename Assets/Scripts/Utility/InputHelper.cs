@@ -19,7 +19,7 @@ public static class InputHelper
         float xDegree = Mathf.Abs(dirVec.x);
 
 
-        if(Mathf.Abs(dirVec.y) <0.5f)
+        if (Mathf.Abs(dirVec.y) < 0.5f)
         {
             if (dirVec.x > 0)
                 return TouchDirection.Right;

@@ -21,11 +21,11 @@ public class Main : MonoBehaviour
         stageButton = GameObject.Find("Stage Button").GetComponent<Button>();
         stageButton.onClick.AddListener(OnStageButtonDown);
 
-        //EventManager.PushEvent(new EventData(EventType.Message, "First Message"));
-        //EventManager.PushEvent(new EventData(EventType.Message, "Second Message"));
+        EventManager.PushEvent(new EventData(EventType.Popup, "First Message"));
+        EventManager.PushEvent(new EventData(EventType.Popup, "Second Message"));
 
-        //EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
-        //EventManager.PushEvent(new EventData(EventType.Dialog, "Second"));
+        EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
+        EventManager.PushEvent(new EventData(EventType.Dialog, "Second"));
     }
 
     void OnStageButtonDown()
