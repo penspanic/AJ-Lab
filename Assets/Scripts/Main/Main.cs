@@ -4,8 +4,7 @@ using System.Collections;
 
 public class Main : MonoBehaviour
 {
-    public GameObject a;
-
+   
     Button stageButton;
 
     bool isChanging = false;
@@ -21,11 +20,8 @@ public class Main : MonoBehaviour
         stageButton = GameObject.Find("Stage Button").GetComponent<Button>();
         stageButton.onClick.AddListener(OnStageButtonDown);
 
-        EventManager.PushEvent(new EventData(EventType.Popup, "First Message"));
-        EventManager.PushEvent(new EventData(EventType.Popup, "Second Message"));
-
-        EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
-        EventManager.PushEvent(new EventData(EventType.Dialog, "Second"));
+        //EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
+        //EventManager.PushEvent(new EventData(EventType.Dialog, "Second"));
     }
 
     void OnStageButtonDown()

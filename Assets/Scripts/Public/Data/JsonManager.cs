@@ -19,6 +19,7 @@ public class JsonManager : MonoBehaviour
     }
 
     TextAsset dialogueJson;
+    TextAsset descriptionJson;
 
     public void CheckInstance()
     {
@@ -28,6 +29,7 @@ public class JsonManager : MonoBehaviour
     void Awake()
     {
         dialogueJson = Resources.Load<TextAsset>("Text File/Dialogue");
+        descriptionJson = Resources.Load<TextAsset>("Text File/Object Description");
     }
 
     public DialogData GetDialogueData(string dialogueName)
@@ -52,5 +54,12 @@ public class JsonManager : MonoBehaviour
         returnData.portrait = portraitList.ToArray();
 
         return returnData;
+    }
+
+    public string GetObjectDescription(string objectName)
+    {
+        JsonData descriptionJsonData = JsonMapper.ToObject(descriptionJson.text)[objectName];
+
+        return descriptionJsonData["Description"].ToString();
     }
 }

@@ -15,6 +15,9 @@ public class SS_CameraMove : MonoBehaviour
 
     bool prevMouseDown = false;
 
+    bool floor1Stayed = false;
+    bool floor7Stayed = false;
+
     Vector2 prevTouchPos = Vector2.zero;
     Vector2 currTouchPos = Vector2.zero;
     Vector2 deltaPos = Vector2.zero;
@@ -60,7 +63,7 @@ public class SS_CameraMove : MonoBehaviour
     #region Event
     void OnUpButtonDown()
     {
-        if (isMoving || player.floorChanging || currFloor == 5)
+        if (isMoving || player.floorChanging || currFloor == 7)
             return;
         StartCoroutine(FloorChange(currFloor + 1));
         currFloor++;
@@ -117,6 +120,8 @@ public class SS_CameraMove : MonoBehaviour
         }
         transform.position = endPos;
         isMoving = false;
+
+        ExcaliburGetCheck();
     }
     float GetMaxPosX(int floor)
     {
@@ -138,5 +143,19 @@ public class SS_CameraMove : MonoBehaviour
             }
         }
         return false;
+    }
+
+    void ExcaliburGetCheck()
+    {
+        if (currFloor == 1)
+            floor1Stayed = true;
+        else if (currFloor == 7)
+            floor7Stayed = true;
+
+        if(floor1Stayed && floor7Stayed)
+        {
+            ItemManager.instance.CheckInstance();
+            ItemManager.instance.GetItem("Excalibur");
+        }
     }
 }

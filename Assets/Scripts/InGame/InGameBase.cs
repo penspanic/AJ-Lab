@@ -47,7 +47,7 @@ public abstract class InGameBase : MonoBehaviour
         if (isChanging)
             return;
         isChanging = true;
-        StartCoroutine(SceneEffector.instance.FadeOut(1,"Stage Select"));
+        StartCoroutine(SceneEffector.instance.FadeOut(1, "Stage Select"));
     }
 
     public void GameEnd()

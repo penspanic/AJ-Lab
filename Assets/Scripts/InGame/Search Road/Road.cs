@@ -22,24 +22,26 @@ public class Road : MonoBehaviour, IPointerClickHandler
 {
     public RoadType type;
 
-    static Sprite straightPipeSprite;
-    static Sprite curvedPipeSprite;
-    static Sprite crossedPipeSprite;
+    static Sprite straightRoadSprite;
+    static Sprite curvedRoadSprite;
 
 
     RoadManager roadMgr;
     SpriteRenderer sprRenderer;
 
-    bool isRotating = false;
+    public bool isRotating
+    {
+        get;
+        private set;
+    }
 
     void Awake()
     {
 
-        if(straightPipeSprite == null)
+        if(straightRoadSprite == null)
         {
-            straightPipeSprite = Resources.Load<Sprite>("Sprite/InGame/Plumber/Pipe_Straight");
-            curvedPipeSprite = Resources.Load<Sprite>("Sprite/InGame/Plumber/Pipe_Curved");
-            crossedPipeSprite = Resources.Load<Sprite>("Sprite/InGame/Plumber/Pipe_Crossed");
+            straightRoadSprite = Resources.Load<Sprite>("Sprite/InGame/Search Road/Road_Straight");
+            curvedRoadSprite = Resources.Load<Sprite>("Sprite/InGame/Search Road/Road_Curved");
         }
         sprRenderer = GetComponent<SpriteRenderer>();
         roadMgr = GameObject.FindObjectOfType<RoadManager>();
@@ -59,19 +61,23 @@ public class Road : MonoBehaviour, IPointerClickHandler
         switch(type)
         {
             case RoadType.Straight:
-                targetSprite = straightPipeSprite;
+                targetSprite = straightRoadSprite;
                 break;
             case RoadType.Curved:
-                targetSprite = curvedPipeSprite;
-                break;
-            case RoadType.Crossed:
-                targetSprite = crossedPipeSprite;
+                targetSprite = curvedRoadSprite;
                 break;
         }
         sprRenderer.sprite = targetSprite;
     }
+    
+    public void Rotate()
+    {
+        if (isRotating)
+            return;
+        StartCoroutine(RotateProcess());
+    }
 
-    IEnumerator Rotate()
+    IEnumerator RotateProcess()
     {
         isRotating = true;
 
@@ -106,7 +112,7 @@ public class Road : MonoBehaviour, IPointerClickHandler
     {
         if (isRotating)
             return;
-        StartCoroutine(Rotate());
+        StartCoroutine(RotateProcess());
         
     }
 
@@ -135,15 +141,6 @@ public class Road : MonoBehaviour, IPointerClickHandler
         }
         return null;
     }
-
-    //// TODO : type 에 따라 다르게 리턴(십자 모양때문에)
-    //public RoadDirection GetOppositeDirection(RoadDirection dir)
-    //{
-    //    switch(dir)
-    //    {
-
-    //    }
-    //}
 
     public RoadDirection[] GetDirection()
     {

@@ -48,7 +48,7 @@ public class TutorialViewer : MonoBehaviour
         isChanging = true;
 
         // 애니메이터 처리
-        windowAnimator.Play("Rise");
+        windowAnimator.Play("Disappear");
     }
 
     public IEnumerator ShowTutorial(string gameName)
@@ -59,7 +59,7 @@ public class TutorialViewer : MonoBehaviour
         tutorialImage.sprite = tutorialSprite;
 
         ResetParent();
-        windowAnimator.Play("Fall");
+        windowAnimator.Play("Show");
 
         yield return new WaitForSeconds(1f);
         isChanging = false;

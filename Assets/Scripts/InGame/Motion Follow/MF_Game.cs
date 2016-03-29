@@ -9,14 +9,15 @@ public class MF_Game : InGameBase
         base.Awake();
     }
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     protected override void OnGameStart()
     {
         base.OnGameStart();
+
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 
     protected override void OnGameEnd()

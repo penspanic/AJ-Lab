@@ -13,6 +13,14 @@ public class Intro : MonoBehaviour
 
     void Awake()
     {
+        //PlayerPrefs.DeleteAll();
+
+        if(PlayerPrefs.HasKey("GameRunCount"))
+        {
+            Application.LoadLevel("Title");
+            return;            
+        }
+        PlayerPrefs.SetInt("GameRunCount", 1);
 
         SceneEffector.instance.CheckInstance();
         StartCoroutine(SceneEffector.instance.FadeIn(2f));

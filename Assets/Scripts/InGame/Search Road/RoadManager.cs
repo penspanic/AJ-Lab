@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class RoadManager : MonoBehaviour
 {
-    TestGame gameScene;
-    PlumberMap map;
+    SearchRoad gameScene;
+    RoadMap map;
 
     List<Road> beAnswerList = new List<Road>();
     RoadDirection nextDirection;
@@ -17,12 +17,12 @@ public class RoadManager : MonoBehaviour
     Road road5_10;
     void Awake()
     {
-        gameScene = GameObject.FindObjectOfType<TestGame>();
-        map = GameObject.FindObjectOfType<PlumberMap>();
+        gameScene = GameObject.FindObjectOfType<SearchRoad>();
+        map = GameObject.FindObjectOfType<RoadMap>();
 
         start = GameObject.Find("Start").GetComponent<Road>();
         end = GameObject.Find("End").GetComponent<Road>();
-        road5_10 = GameObject.Find("Road5,10").GetComponent<Road>();
+        road5_10 = GameObject.Find("Road5,8").GetComponent<Road>();
     }
 
     public void CheckClear() // 길이 바뀌었을 때 체크
