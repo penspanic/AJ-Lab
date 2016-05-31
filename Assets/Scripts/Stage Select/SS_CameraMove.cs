@@ -63,7 +63,7 @@ public class SS_CameraMove : MonoBehaviour
     #region Event
     void OnUpButtonDown()
     {
-        if (isMoving || player.floorChanging || currFloor == 7)
+        if (isMoving || player.floorChanging || currFloor == 5)
             return;
         StartCoroutine(FloorChange(currFloor + 1));
         currFloor++;
@@ -149,7 +149,7 @@ public class SS_CameraMove : MonoBehaviour
     {
         if (currFloor == 1)
             floor1Stayed = true;
-        else if (currFloor == 7)
+        else if (currFloor == 5)
             floor7Stayed = true;
 
         if(floor1Stayed && floor7Stayed)

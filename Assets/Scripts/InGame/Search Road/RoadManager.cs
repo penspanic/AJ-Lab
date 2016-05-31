@@ -9,20 +9,29 @@ public class RoadManager : MonoBehaviour
     RoadMap map;
 
     List<Road> beAnswerList = new List<Road>();
+    List<RoadDirection> moveCommandList = new List<RoadDirection>();
+
     RoadDirection nextDirection;
     //RoadDirection endPrevAnswerDirection;
     Road start;
     Road end;
 
     Road road5_10;
+
+    SR_Player player;
+
     void Awake()
     {
         gameScene = GameObject.FindObjectOfType<SearchRoad>();
-        map = GameObject.FindObjectOfType<RoadMap>();
+
+        map = Instantiate<GameObject>(Resources.Load<GameObject>("Prefab/InGame/Search Road/Map" + StageManager.instance.currStage.ToString()))
+            .GetComponent<RoadMap>();
 
         start = GameObject.Find("Start").GetComponent<Road>();
         end = GameObject.Find("End").GetComponent<Road>();
         road5_10 = GameObject.Find("Road5,8").GetComponent<Road>();
+
+        player = GameObject.FindObjectOfType<SR_Player>();
     }
 
     public void CheckClear() // 길이 바뀌었을 때 체크
@@ -31,7 +40,10 @@ public class RoadManager : MonoBehaviour
         bool isCleared = false;
         beAnswerList.Clear();
         beAnswerList.Add(start);
+
         nextDirection = RoadDirection.Bottom;
+        moveCommandList.Clear();
+        moveCommandList.Add(nextDirection);
         while(true)
         {
             newRoad = GetConnectedRoad(beAnswerList[beAnswerList.Count - 1], nextDirection);
@@ -47,7 +59,7 @@ public class RoadManager : MonoBehaviour
                 }
                 beAnswerList.Add(newRoad);
                 nextDirection = GetAnotherDirection(newRoad, GetOppositeDirection(nextDirection));
-
+                moveCommandList.Add(nextDirection);
             }
             else
             {
@@ -56,16 +68,10 @@ public class RoadManager : MonoBehaviour
         }
 
         if (isCleared)
-            gameScene.GameEnd();
-
-        //string s = "";
-
-        //foreach(Road eachRoad in beAnswerList)
-        //{
-        //    Vector2 index = map.GetRoadIndex(eachRoad);
-        //    s += "[" + index.x + "," + index.y + "] , ";
-        //}
-        //Debug.Log(s);
+        {
+            moveCommandList.Add(RoadDirection.Bottom);
+            player.Move(moveCommandList);
+        }
     }
 
     Road GetConnectedRoad(Road target,RoadDirection dir)

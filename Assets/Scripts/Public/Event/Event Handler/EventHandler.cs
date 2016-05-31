@@ -17,12 +17,12 @@ public class EventHandler : MonoBehaviour
     IEnumerator EventProcess()
     {
         EventData currEvent;
-        while(true)
+        while (true)
         {
             currEvent = EventManager.GetEventByOrder();
-            if(currEvent != null)
+            if (currEvent != null)
             {
-                switch(currEvent.type)
+                switch (currEvent.type)
                 {
                     case EventType.Dialog:
                         yield return StartCoroutine(

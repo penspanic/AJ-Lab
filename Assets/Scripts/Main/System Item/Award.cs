@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class Credit : Item
+public class Award : Item
 {
 
     protected override void Awake()

@@ -1,5 +1,20 @@
 ﻿{
   "Excalibur": {
-    "Description" :  "엑스칼리버다."
+    "Description": "몬스터 HP를 무조건 1/3씩 깎는다."
+  },
+  "Snowball": {
+    "Description": "눈 아이콘을 택하면 9초동안 쫓아오는 용암을 얼려주며, 속도는 9초동안 점점 증가하여 얼리기 전의 속도로 돌아온다."
+  },
+  "Hourglass": {
+    "Description": "어따 쓰는거지"
+  }
+  "Fly Swatter": {
+    "Description": "지네에게 닿기 직전 한 플레이에 3마리까지 지네를 잡아준다."
+  },
+  "Sunglasses": {
+    "Description": "9초동안 다음에 터치해야 할 연등을 표시해준다."
+  },
+  "Mini Ballon": {
+    "Description": "오답을 3회까지 대신 처리해준다."
   }
 }

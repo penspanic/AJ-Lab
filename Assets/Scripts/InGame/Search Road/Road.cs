@@ -28,6 +28,7 @@ public class Road : MonoBehaviour, IPointerClickHandler
 
     RoadManager roadMgr;
     SpriteRenderer sprRenderer;
+    SR_Player player;
 
     public bool isRotating
     {
@@ -45,6 +46,7 @@ public class Road : MonoBehaviour, IPointerClickHandler
         }
         sprRenderer = GetComponent<SpriteRenderer>();
         roadMgr = GameObject.FindObjectOfType<RoadManager>();
+        player = GameObject.FindObjectOfType<SR_Player>();
 
         SpriteSet();
     }
@@ -72,7 +74,7 @@ public class Road : MonoBehaviour, IPointerClickHandler
     
     public void Rotate()
     {
-        if (isRotating)
+        if (isRotating || player.isMoving)
             return;
         StartCoroutine(RotateProcess());
     }
@@ -104,16 +106,13 @@ public class Road : MonoBehaviour, IPointerClickHandler
         {
             s += eachDir.ToString() + " ";
         }
-        roadMgr.CheckClear();
+         roadMgr.CheckClear();
 
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (isRotating)
-            return;
-        StartCoroutine(RotateProcess());
-        
+        Rotate();   
     }
 
     static RoadDirection[] GetDirection(RoadType type, Vector3 rotation)

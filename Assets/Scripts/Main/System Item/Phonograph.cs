@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class BGM : Item
+public class Phonograph : Item
 {
 
     public static bool bgmOn

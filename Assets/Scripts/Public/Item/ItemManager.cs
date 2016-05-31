@@ -21,12 +21,28 @@ public class ItemManager : MonoBehaviour
     Dictionary<string, bool> ownItemDictionary = new Dictionary<string, bool>();
     public void CheckInstance()
     {
-
+        
     }
 
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        //GetAllItem();
+    }
+
+    void GetAllItem()
+    {
+        GetItem("Excalibur");
+        GetItem("Snowball");
+        GetItem("Sunglasses");
+        GetItem("Mini Ballon");
+        GetItem("Hourglass");
+        GetItem("Fly Swatter");
+        
+        // System items
+        GetItem("Books");
+        GetItem("Award");
+        GetItem("Phonograph");
     }
 
     public bool HasItem(string itemName)
@@ -68,7 +84,6 @@ public class ItemManager : MonoBehaviour
         foreach(string eachItem in ownItemDictionary.Keys)
         {
             PlayerPrefs.SetInt(eachItem, ownItemDictionary[eachItem] == true ? 1 : 0);
-            Debug.Log(eachItem);
         }
     }
 }

@@ -17,20 +17,9 @@ public class Main : MonoBehaviour
         DialogViewer.instance.CheckInstance();
         DialogViewer.instance.ShowDialogue("First");
 
-        stageButton = GameObject.Find("Stage Button").GetComponent<Button>();
-        stageButton.onClick.AddListener(OnStageButtonDown);
-
         //EventManager.PushEvent(new EventData(EventType.Dialog, "First"));
         //EventManager.PushEvent(new EventData(EventType.Dialog, "Second"));
     }
 
-    void OnStageButtonDown()
-    {
-        if (isChanging)
-            return;
-        isChanging = true;
-        
-        SceneEffector.instance.CheckInstance();
-        StartCoroutine(SceneEffector.instance.FadeOut(1f, "Stage Select"));
-    }
+
 }

@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = new GameObject("Stage Manager").AddComponent<StageManager>();
             }
@@ -17,6 +17,7 @@ public class StageManager : MonoBehaviour
         }
     }
 
+    public int currStage;
     public bool showTutorial;
 
     bool[] stageCleared = new bool[77];
@@ -46,12 +47,10 @@ public class StageManager : MonoBehaviour
 
 /*
 
-    11111111111111111
-    111111111111111
-    1111111111111
     11111111111
     111111111
     1111111
     11111
+    111
 
 */

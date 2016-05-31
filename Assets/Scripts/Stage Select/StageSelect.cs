@@ -17,6 +17,7 @@ public class StageSelect : MonoBehaviour
             return;
         isChanging = true;
         StageManager.instance.showTutorial = showTutorial;
+        StageManager.instance.currStage = stage;
         StartCoroutine(SceneEffector.instance.FadeOut(1f, StageManager.instance.GetSceneName(stage)));
     }
 }
